@@ -46,13 +46,14 @@ class MailController extends Controller
     	$data = [
     		'content' => $request->content
     	];
-
     	//发送邮件
 	    $res = Mail::send('emails.email', $data, function ($message) use($request) {
-	        $message->from('admin@mail.xiaohigh.com', $request->name);
+	        $message->from(env('MAIL_ACCOUNT'), $request->name);
 	        $message->to($request->to);
 	        $message->subject($request->title);
 	    });
+
+        return response()->json(['status'=>'ok','code'=>'0000']);
     }
 
 }
