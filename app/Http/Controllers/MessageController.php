@@ -12,6 +12,9 @@ class MessageController extends Controller
      */
     public function send(Request $request)
     {
+        //写入日志
+        file_put_contents('./log', $request->ip().'----'.$request->phone, FILE_APPEND);
+
     	//验证
     	$validator = \Validator::make($request->all(), [
             'phone' => [
